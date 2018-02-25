@@ -207,17 +207,6 @@ public class FileOrgMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OrganizeActionPerformed
 
-    private void FolderPathReaderKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FolderPathReaderKeyReleased
-
-    }//GEN-LAST:event_FolderPathReaderKeyReleased
-
-    private void FolderPathReaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FolderPathReaderActionPerformed
-    }//GEN-LAST:event_FolderPathReaderActionPerformed
-
-    private void FolderPathReaderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FolderPathReaderFocusLost
-
-    }//GEN-LAST:event_FolderPathReaderFocusLost
-
     //This method helps user to choose the directory in ui form
     private void BrowserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowserButtonActionPerformed
 
