@@ -4,3 +4,12 @@ The project is prepared for dealing day to day problem of Cleaning up a cluttere
 The app is created in Swing (JAVA).
 i have tried using deapth first search algorithm or we can se level order traversal for getting 10 big files according to size
 and for managing folder user can select a directory and then can organize all the files inside the directory except the shortcut's link
+
+Just copy the FileOrganizer.jar file to your computer and it just needed to be executed
+
+Requirements :  you just need to have a jdk on your pc as this project is developed in java this code needs jvm compiler to execute
+
+Although i have tried to built a cross platform application but the code work's perfect in windows, smoothly in Linux/Unix and MacOS
+
+P.S : the program might crash if u gone out of space (generally every application crashes if you don't have enough disk space)
+
