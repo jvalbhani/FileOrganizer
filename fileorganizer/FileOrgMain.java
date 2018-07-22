@@ -5,19 +5,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Stack;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 
 public class FileOrgMain extends javax.swing.JFrame {
 
     public FileOrgMain() {
-        initComponents(); 
-        waitMessage.setVisible(false);
+        initComponents();        
     }
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -119,170 +117,119 @@ public class FileOrgMain extends javax.swing.JFrame {
             }
         });
 
-        waitMessage.setText("Please wait while the files are loading........");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ScrollFile)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FolderPathReader, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BrowserButton))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FolderPathReader, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BrowserButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TitleLabel)
-                                    .addComponent(Organize, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                                    .addComponent(LargeFileViewerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(waitMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TitleLabel)
+                    .addComponent(Organize, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                    .addComponent(LargeFileViewerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(waitMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(TitleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FolderPathReader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BrowserButton)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Organize)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(LargeFileViewerButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(waitMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(waitMessage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ScrollFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
-    
-    //This method organizes the files of selected folder
     /*
-    the method creates a documents folder inside the selected folder and in these 
-    folders the seperate folder are creted according to their extensions except the shortcut's 
-    */
-    
+     *   This method organizes the files of selected folder. 
+     *
+     *   The method creates a documents folder inside the selected folder and in these 
+     *   folders the seperate folder are creted according to their extensions except the shortcut's 
+     */
+
     private void OrganizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrganizeActionPerformed
-        File directory=new File(FolderPathReader.getText());
-        if(!directory.isDirectory())
-        {
+        File directory = new File(FolderPathReader.getText());
+        errDialog.setTitle("Status");
+        if (!directory.isDirectory()) {
             err_message.setText("Please enter valid file path");
             errDialog.setVisible(true);
-        }
-        else{
-            File[] listFiles = directory.listFiles();        
-            for (File listFile : listFiles) 
-            {
-                String extension[]=listFile.getName().split("\\.");
-                if(!extension[extension.length-1].equalsIgnoreCase("lnk") && !extension[extension.length-1].equalsIgnoreCase("app") && !extension[extension.length-1].equalsIgnoreCase("desktop") && !listFile.isDirectory())
-                {
+        } else {
+            File[] listFiles = directory.listFiles();
+            for (File listFile : listFiles) {
+                String extension[] = listFile.getName().split("\\.");
+                if (!extension[extension.length - 1].equalsIgnoreCase("lnk") && !extension[extension.length - 1].equalsIgnoreCase("app") && !extension[extension.length - 1].equalsIgnoreCase("desktop") && !listFile.isDirectory()) {
                     try {
-                        if(!(new File(listFile.getParentFile()+"/Documents/"+extension[extension.length-1].toUpperCase()).exists()))
-                            new File(listFile.getParentFile()+"/Documents/"+extension[extension.length-1].toUpperCase()).mkdirs();
-                        Files.move(Paths.get(listFile.getPath()),Paths.get(listFile.getParentFile()+"/Documents/"+extension[extension.length-1].toUpperCase()+"/"+listFile.getName()),StandardCopyOption.REPLACE_EXISTING);
-                    } catch (IOException ex) {
+                        if (!(new File(listFile.getParentFile() + "/Documents/" + extension[extension.length - 1].toUpperCase()).exists())) {
+                            new File(listFile.getParentFile() + "/Documents/" + extension[extension.length - 1].toUpperCase()).mkdirs();
+                        }
+                        Files.move(Paths.get(listFile.getPath()), Paths.get(listFile.getParentFile() + "/Documents/" + extension[extension.length - 1].toUpperCase() + "/" + listFile.getName()), StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException ex) {                        
                         err_message.setText("Some error occured : contact system admin");
                         errDialog.setVisible(true);
                     }
-                } 
+                }
             }
             err_message.setText("Done");
             errDialog.setVisible(true);
         }
     }//GEN-LAST:event_OrganizeActionPerformed
 
+    private void FolderPathReaderKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FolderPathReaderKeyReleased
+
+    }//GEN-LAST:event_FolderPathReaderKeyReleased
+
+    private void FolderPathReaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FolderPathReaderActionPerformed
+    }//GEN-LAST:event_FolderPathReaderActionPerformed
+
+    private void FolderPathReaderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FolderPathReaderFocusLost
+
+    }//GEN-LAST:event_FolderPathReaderFocusLost
+
     //This method helps user to choose the directory in ui form
     private void BrowserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowserButtonActionPerformed
 
-    JFileChooser chooser = new JFileChooser(); 
-    chooser.setCurrentDirectory(new java.io.File("."));
-    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    chooser.setAcceptAllFileFilterUsed(false);
-    if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-        FolderPathReader.setText(chooser.getSelectedFile().toString());
-      }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            FolderPathReader.setText(chooser.getSelectedFile().toString());
+        }
     }//GEN-LAST:event_BrowserButtonActionPerformed
 
     //This method is of err_meassage box which terminates the box clicking ok button
     private void err_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_err_okActionPerformed
         errDialog.setVisible(false);
     }//GEN-LAST:event_err_okActionPerformed
-    
-    
+
     //This method traverse the file directory from root using deapth first search algorithm
     private void LargeFileViewerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LargeFileViewerButtonActionPerformed
-       
-        waitMessage.setVisible(true);   
-        
-        TreeMap<Long,File> BigFiles=new TreeMap<>();        //Stores the Big 10 files in a sorted order according to fileSize
-        Queue<File> DirectoryQ=new LinkedList<>();          // Stores all the directories which are yet to be traversed 
-        File DirFiles[]=File.listRoots();                   //This static function returns us the all root directories
-        
-        for(File f: DirFiles)
-        {
-            if(f.canRead())
-            {
-                System.out.println(f.getPath());
-                DirectoryQ.add(f);            
-            }
-        }
-
-        //The below loop traverse and checks each file and compares the file with the least big file
-        // P.S : this helps us from comparing all the big files
-        
-        while(!DirectoryQ.isEmpty())
-        {
-            File CurrFile[] = (DirectoryQ.remove()).listFiles();
-            if(CurrFile!=null)
-            {
-                for(File file : CurrFile)
-                {
-                    if(!file.canRead())
-                        System.out.println(file.getPath());
-                    else if(file.isDirectory())
-                        DirectoryQ.add(file);
-                    else if(BigFiles.size()<10 || file.length()>BigFiles.firstKey())
-                    {
-                        BigFiles.put(file.length(),file);
-                        if(BigFiles.size()>10)
-                            BigFiles.remove(BigFiles.firstKey());
-                    }  
-                }
-            }        
-        }
-               
-        //Just printing those 10 big files 
-        //eg : (<size>MB)<FileName>
-        
-        String arr[]=new String[10];
-        for(int i=9;i>=0;i--)
-        {
-            arr[i]=new StringBuilder("(").append((float)BigFiles.firstKey()/(1024*1024)).append(" MB )\t").append(BigFiles.remove(BigFiles.firstKey()).getName()).toString();
-        }
-        BigFileViewer.setListData(arr);
-        waitMessage.setVisible(false);
-        System.out.println("----------------Done-------------------");
+        waitMessage.setText("Please wait while the files are loading........");
+        displaBigFiles();
     }//GEN-LAST:event_LargeFileViewerButtonActionPerformed
 
-
     //The main method
-    public static void main(String args[]) {       
+    public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -290,13 +237,11 @@ public class FileOrgMain extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FileOrgMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.awt.EventQueue.invokeLater(() -> { new FileOrgMain().setVisible(true); });
         }
-
-        java.awt.EventQueue.invokeLater(() -> {
-            new FileOrgMain().setVisible(true);
-        });        
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> BigFileViewer;
@@ -312,4 +257,77 @@ public class FileOrgMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel waitMessage;
     // End of variables declaration//GEN-END:variables
+
+    
+    
+    
+    
+    
+    //The method to display
+    Thread th;   
+    public void displaBigFiles() {
+        if (th != null && th.isAlive())
+            return;
+        
+        th = new Thread() {
+            @Override
+            public void run() {
+
+                TreeMap<Long, File> BigFiles = new TreeMap<>();        //Stores the Big 10 files in a sorted order according to fileSize
+                Stack<File> DirectoryQ = new Stack<>();          // Stores all the directories which are yet to be traversed 
+                File DirFiles[] = File.listRoots();                   //This static function returns us the all root directories
+
+                for (File f : DirFiles) {
+                    if (f.canRead()) {
+                        System.out.println(f.getPath());
+                        DirectoryQ.add(f);
+                    }
+                }
+
+                //The below loop traverse and checks each file and compares the file with the least big file
+                // P.S : this helps us from comparing all the big files
+                while (!DirectoryQ.isEmpty()) {
+                    File CurrFile[] = (DirectoryQ.pop()).listFiles();
+                    if (CurrFile != null) {
+                        for (File file : CurrFile) {
+                            if (!file.canRead() && !file.canExecute()) {
+                                System.out.println(file.getPath());
+                            } else if (file.isDirectory()) {
+                                DirectoryQ.add(file);
+                            } else if (BigFiles.size() < 10 || file.length() > BigFiles.firstKey()) {
+                                BigFiles.put(file.length(), file);
+                                if (BigFiles.size() > 10) {
+                                    BigFiles.remove(BigFiles.firstKey());
+                                }
+                            }
+                        }
+                    }
+                }
+                //Just printing those 10 big files 
+                //eg : (<size>MB)<FileName>
+                String arr[] = new String[10];
+                for (int i = 9; i >= 0; i--) {
+                    arr[i] = new StringBuilder("(").append((float) BigFiles.firstKey() / (1024 * 1024)).append(" MB )\t").append(BigFiles.remove(BigFiles.firstKey()).getName()).toString();
+                }
+//                BigFileViewer.add(new JLabel(arr[0]));
+//                BigFileViewer.add(new JLabel(arr[1]));
+//                BigFileViewer.add(new JLabel(arr[2]));
+//                BigFileViewer.add(new JLabel(arr[3]));
+//                BigFileViewer.add(new JLabel(arr[4]));
+//                BigFileViewer.add(new JLabel(arr[5]));
+//                BigFileViewer.add(new JLabel(arr[6]));
+//                BigFileViewer.add(new JLabel(arr[7]));
+//                BigFileViewer.add(new JLabel(arr[8]));
+//                BigFileViewer.add(new JLabel(arr[9]));
+                BigFileViewer.setListData(arr);
+                waitMessage.setText("");
+                System.out.println("----------------Done-------------------");
+
+            }
+
+        };
+        System.out.println(th.getState());
+        th.setPriority(Thread.MAX_PRIORITY);
+        th.start();
+    }
 }
