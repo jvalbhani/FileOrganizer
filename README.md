@@ -9,7 +9,3 @@ Just copy the FileOrganizer.jar file to your computer and it just needed to be e
 
 Requirements :  you just need to have a jdk on your pc as this project is developed in java this code needs jvm compiler to execute
 
-Although i have tried to built a cross platform application but the code work's perfect in windows, smoothly in Linux/Unix and MacOS
-
-P.S : the program might crash if u gone out of space (generally every application crashes if you don't have enough disk space)
-
